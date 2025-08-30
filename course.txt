@@ -1,0 +1,11 @@
+
+aws
+devops
+python
+sql
+htl
+css
+js
+django
+ml
+
