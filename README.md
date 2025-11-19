@@ -24,52 +24,44 @@ id nuthan
 id ramya
 
 6: PASSWORD POLICIES
-Step 1: Set password aging policy for teju
+
+# Step 1: Set password aging policy for teju
 sudo chage -M 60 -m 5 -W 10 teju
 
-Step 2: Force nuthan password to expire
+# Step 2: Force nuthan password to expire
 sudo passwd --expire nuthan
 
-Step 3: Set account expiration date for ramya
+# Step 3: Set account expiration date for ramya
 sudo chage -E 2025-12-31 ramya
 
-Step 4: Lock and Unlock teju
+# Step 4: Lock and Unlock teju
 sudo passwd -l teju
 sudo passwd -u teju
 
 7: Disable login after inactivity for nuthan
 sudo chage -I 30 nuthan
 
-Verify password policies
+# Verify password policies
 sudo chage -l teju
 sudo chage -l nuthan
 sudo chage -l ramya
 
 8: CONFIGURE SUDO PRIVILEGES
-
-📌 Edit sudoers file safely
-
 sudo visudo
 
-
-➡️ Add these inside the file:
-
-ALLOW TEJU TO RESTART SSH ONLY
+# Add these inside the file:
 teju ALL=(ALL) /bin/systemctl restart ssh, /bin/systemctl status ssh
-
-ALLOW NUTHAN TO RUN ONLY NETWORK COMMANDS
 nuthan ALL=(ALL) /usr/sbin/ifconfig, /usr/sbin/ip
-
-ALLOW RAMYA PASSWORDLESS df
 ramya ALL=(ALL) NOPASSWD: /bin/df
 
 9: TEST COMMANDS
-For ramya:
+# For ramya:
 sudo df
 
-For teju:
+# For teju:
 sudo systemctl restart ssh
 sudo systemctl status ssh
 
-For nuthan:
+# For nuthan:
 sudo ip addr
+
